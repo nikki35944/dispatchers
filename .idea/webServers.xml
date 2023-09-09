@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="9f9fc1b4-6bec-4e35-befb-926c8a2a8d2a" name="test-webkit ftp" url="http://37.140.192.112">
+        <fileTransfer rootFolder="/www/test.webkit.site" host="37.140.192.112" port="21">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
