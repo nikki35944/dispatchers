@@ -1,13 +1,11 @@
 <?php
 
-namespace Dispatchers;
+namespace Webkit;
 
-use Bitrix\Main\ORM\Fields;
-use Bitrix\Main\ORM\Fields\Relations;
-use Bitrix\Main\ORM\Query\Join;
+use Bitrix\Main\Entity;
 use Bitrix\Main\Type;
 
-class DispatchersTable extends \Bitrix\Main\ORM\Data\DataManager
+class DispatchersTable extends Entity\DataManager
 {
     public static function getTableName()
     {
@@ -21,22 +19,22 @@ class DispatchersTable extends \Bitrix\Main\ORM\Data\DataManager
 
     public static function getMap()
     {
-        return array([
-            new Fields\IntegerField('ID', array(
+        return [
+            new Entity\IntegerField('ID', [
                 'primary' => true,
                 'autocomplete' => true,
-            )),
-            new Fields\DatetimeField('ACTIVITY_START', array(
+            ]),
+            new Entity\DatetimeField('ACTIVITY_START', [
                 'default_value' => new Type\Date,
-            )),
-            new Fields\BooleanField('IS_ACTIVE'),
-            new Fields\DatetimeField('ACTIVITY_END'),
-            new Fields\TextField('COMMENTARY'),
-            new Fields\IntegerField('ACCESS_LEVEL', array(
+            ]),
+            new Entity\BooleanField('IS_ACTIVE'),
+            new Entity\DatetimeField('ACTIVITY_END'),
+            new Entity\TextField('COMMENTARY'),
+            new Entity\IntegerField('ACCESS_LEVEL', [
                 'validation' => function() {
-                    return array(
+                    return [
                         function ($value) {
-                            if ($value <= 12 && $value >= 1)
+                            if ($value >= 1 && $value <= 12)
                             {
                                 return true;
                             }
@@ -45,11 +43,11 @@ class DispatchersTable extends \Bitrix\Main\ORM\Data\DataManager
                                 return 'Должно быть число от 1 до 12';
                             }
                         }
-                    );
+                    ];
                 }
-            )),
-            new Fields\IntegerField('USER_ID'),
+            ]),
+            new Entity\IntegerField('USER_ID'),
+        ];
 
-        ]);
     }
 }
