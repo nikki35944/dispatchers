@@ -1,12 +1,10 @@
 <?php
 
-use Bitrix\Main\Localization\Loc;
-use Bitrix\Main\Config as Conf;
-use Bitrix\Main\Loader;
-use Bitrix\Main\ModuleManager;
 use Bitrix\Main\Application;
 use Bitrix\Main\Entity\Base;
-use Bitrix\Main\Config\Option;
+use Bitrix\Main\Loader;
+use Bitrix\Main\Localization\Loc;
+use Bitrix\Main\ModuleManager;
 
 Loc::loadMessages(__FILE__);
 
@@ -35,15 +33,15 @@ class webkit extends CModule
 
         Loader::includeModule($this->MODULE_ID);
 
-        if (!Application::getConnection(\Webkit\DispatchersTable::getConnectionName())
-            ->isTableExists(Base::getInstance('\Webkit\DispatchersTable')->getDBTableName())
+        if (!Application::getConnection(\Webkit\Table\DispatchersTable::getConnectionName())
+            ->isTableExists(Base::getInstance('\Webkit\Table\DispatchersTable')->getDBTableName())
             &&
-            !Application::getConnection(\Webkit\ObjectsTable::getConnectionName())
-            ->isTableExists(Base::getInstance('\Webkit\ObjectsTable')->getDBTableName())
+            !Application::getConnection(\Webkit\Table\ObjectsTable::getConnectionName())
+            ->isTableExists(Base::getInstance('\Webkit\Table\ObjectsTable')->getDBTableName())
         )
         {
-            Base::getInstance('\Webkit\DispatchersTable')->createDbTable();
-            Base::getInstance('\Webkit\ObjectsTable')->createDbTable();
+            Base::getInstance('\Webkit\Table\DispatchersTable')->createDbTable();
+            Base::getInstance('\Webkit\Table\ObjectsTable')->createDbTable();
         }
 
 
@@ -53,10 +51,10 @@ class webkit extends CModule
     function UnInstallDB($arParams = [])
     {
         Loader::includeModule($this->MODULE_ID);
-        Application::getConnection(\Webkit\DispatchersTable::getConnectionName())
-            ->queryExecute('drop table if exists ' . Base::getInstance('\Webkit\DispatchersTable')->getDBTableName());
-        Application::getConnection(\Webkit\ObjectsTable::getConnectionName())
-            ->queryExecute('drop table if exists ' . Base::getInstance('\Webkit\ObjectsTable')->getDBTableName());
+        Application::getConnection(\Webkit\Table\DispatchersTable::getConnectionName())
+            ->queryExecute('drop table if exists ' . Base::getInstance('\Webkit\Table\DispatchersTable')->getDBTableName());
+        Application::getConnection(\Webkit\Table\ObjectsTable::getConnectionName())
+            ->queryExecute('drop table if exists ' . Base::getInstance('\Webkit\Table\ObjectsTable')->getDBTableName());
 
         return true;
     }

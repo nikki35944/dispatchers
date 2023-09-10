@@ -3,15 +3,9 @@
 Bitrix\Main\Loader::registerAutoloadClasses(
     "webkit",
     [
-        "Webkit\DispatchersTable" => "lib/dispatchers.php",
+        "\Webkit\Table\DispatchersTable" => "lib/tables/dispatchers.php",
+        "\Webkit\Table\ObjectsTable" => "lib/tables/objects.php",
     ]
-);
-Bitrix\Main\Loader::registerAutoloadClasses(
-    "webkit",
-    [
-        "Webkit\ObjectsTable" => "lib/objects.php",
-    ]
-
 );
 
 ?>

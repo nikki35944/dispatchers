@@ -1,6 +1,6 @@
 <?php
 
-namespace Webkit;
+namespace Webkit\Table;
 
 use Bitrix\Main\Entity;
 use Bitrix\Main\Type;

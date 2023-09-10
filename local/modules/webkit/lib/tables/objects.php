@@ -1,6 +1,6 @@
 <?php
 
-namespace Webkit;
+namespace Webkit\Table;
 
 use Bitrix\Main\Entity;
 use Bitrix\Main\Type;
@@ -34,7 +34,7 @@ class ObjectsTable extends Entity\DataManager
             new Entity\IntegerField('DISPATCHER_ID'),
             new Entity\ReferenceField(
                 'DISPATCHER',
-                '\Webkit\DispatchersTable',
+                '\DispatchersTable',
                 ['=this.DISPATCHER_ID', 'ref.ID']
             ),
         ];
