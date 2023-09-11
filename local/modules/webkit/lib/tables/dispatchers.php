@@ -3,6 +3,9 @@
 namespace Webkit\Table;
 
 use Bitrix\Main\Entity;
+use Bitrix\Main\ORM\Fields\IntegerField;
+use Bitrix\Main\ORM\Fields\Relations\Reference;
+use Bitrix\Main\ORM\Query\Join;
 use Bitrix\Main\Type;
 
 class DispatchersTable extends Entity\DataManager
@@ -46,6 +49,12 @@ class DispatchersTable extends Entity\DataManager
                     ];
                 }
             ]),
+            new IntegerField('OBJECT_ID'),
+            (new Reference(
+                'OBJECT',
+                ObjectsTable::class,
+                Join::on('this.OBJECT_ID', 'ref.ID')
+            ))->configureJoinType('inner'),
             new Entity\IntegerField('USER_ID'),
         ];
 

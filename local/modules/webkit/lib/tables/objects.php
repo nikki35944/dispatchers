@@ -3,6 +3,7 @@
 namespace Webkit\Table;
 
 use Bitrix\Main\Entity;
+use Bitrix\Main\ORM\Fields\Relations\OneToMany;
 use Bitrix\Main\Type;
 
 class ObjectsTable extends Entity\DataManager
@@ -31,12 +32,15 @@ class ObjectsTable extends Entity\DataManager
             new Entity\TextField('ADDRESS'),
             new Entity\TextField('COMMENTARY'),
 
-            new Entity\IntegerField('DISPATCHER_ID'),
+
+           ( new OneToMany('DISPATCHERS', DispatchersTable::class, 'OBJECT') )->configureJoinType('inner'),
+
+            /*new Entity\IntegerField('DISPATCHER_ID'),
             new Entity\ReferenceField(
                 'DISPATCHER',
                 '\DispatchersTable',
                 ['=this.DISPATCHER_ID', 'ref.ID']
-            ),
+            ),*/
         ];
     }
 }
