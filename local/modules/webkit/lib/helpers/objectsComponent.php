@@ -4,7 +4,7 @@ namespace Webkit\Helper;
 
 use Bitrix\Main;
 use Webkit\Table\ObjectsTable;
-use Bitrix\Main\Context\Culture;
+use Bitrix\Main\Data\Cache;
 
 
 class objectsComponent extends \CBitrixComponent
@@ -18,6 +18,9 @@ class objectsComponent extends \CBitrixComponent
     function getObjectsAndDispatchers()
     {
         $result = [];
+        $cacheTtl = 36000;
+        $cacheId = 'objects_cache';
+        $obCache = Cache::createInstance();
 
         $query = ObjectsTable::getList([
             'select' => ['ID', 'TITLE', 'ADDRESS', 'COMMENTARY', 'DISPATCHER.ID', 'DISPATCHER.ACTIVITY_START', 'DISPATCHER.COMMENTARY', 'DISPATCHER.B_USER_ID', 'DISPATCHER.ACCESS_LEVEL', 'USER.NAME'],
@@ -36,14 +39,24 @@ class objectsComponent extends \CBitrixComponent
             ],
         ]);
 
-        $resultArr = $query->fetchAll();
+        if ($obCache->initCache($cacheTtl, $cacheId))
+        {
+            $vars = $obCache->getVars();
+            $result = $vars['result'];
+        }
+        elseif ($obCache->startDataCache())
+        {
+            $resultArr = $query->fetchAll();
 
-        foreach ($resultArr as $item) {
-            if (! empty($item['WEBKIT_TABLE_OBJECTS_DISPATCHER_ACTIVITY_START'])) {
-                $objTime = $item['WEBKIT_TABLE_OBJECTS_DISPATCHER_ACTIVITY_START'];
-                $item['WEBKIT_TABLE_OBJECTS_DISPATCHER_ACTIVITY_START'] = $objTime->format('d-m-Y H:i');
+            foreach ($resultArr as $item) {
+                if (! empty($item['WEBKIT_TABLE_OBJECTS_DISPATCHER_ACTIVITY_START'])) {
+                    $objTime = $item['WEBKIT_TABLE_OBJECTS_DISPATCHER_ACTIVITY_START'];
+                    $item['WEBKIT_TABLE_OBJECTS_DISPATCHER_ACTIVITY_START'] = $objTime->format('d-m-Y H:i');
+                }
+                $result[] = $item;
             }
-            $result[] = $item;
+
+            $obCache->endDataCache(['result' => $result]);
         }
 
         return $result;
