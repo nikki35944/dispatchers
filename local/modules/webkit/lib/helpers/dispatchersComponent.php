@@ -15,8 +15,10 @@ class dispatchersComponent extends \CBitrixComponent
 
     function getDispatchersAndObjects()
     {
-        $result = \Webkit\Table\DispatchersTable::getList([
-            'select' => ['*', 'OBJECT.ID', 'OBJECT.TITLE', 'OBJECT.ADDRESS', 'OBJECT.COMMENTARY', 'USER.NAME'],
+        $result = [];
+
+        $query = \Webkit\Table\DispatchersTable::getList([
+            'select' => ['ACCESS_LEVEL', 'COMMENTARY', 'OBJECT.ID', 'OBJECT.TITLE', 'USER.NAME', 'USER.LAST_NAME', 'USER.LAST_LOGIN'],
             'filter' => [],
             'runtime' => [
                 new \Bitrix\Main\Entity\ReferenceField(
@@ -34,8 +36,17 @@ class dispatchersComponent extends \CBitrixComponent
             ]
         ]);
 
+        $resultArr = $query->fetchAll();
 
-        return $result->fetchAll();
+        foreach ($resultArr as $item) {
+            if (! empty($item['WEBKIT_TABLE_DISPATCHERS_USER_LAST_LOGIN'])) {
+                $objTime = $item['WEBKIT_TABLE_DISPATCHERS_USER_LAST_LOGIN'];
+                $item['WEBKIT_TABLE_DISPATCHERS_USER_LAST_LOGIN'] = $objTime->format('d-m-Y H:i');
+            }
+            $result[] = $item;
+        }
+
+        return $result;
     }
 
 

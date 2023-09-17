@@ -16,6 +16,47 @@ $dispatchersArr = $dispatchers->getDispatchersAndObjects();
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 
 
+<?php
+echo '<pre>';
+print_r($dispatchersArr);
+echo '</pre>';
+?>
+    <section class="dispatchers mt-3">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-8">
+                    <h2 class="border-bottom-0">Список активных диспетчеров</h2>
+                    <table class="table table-hover mt-3">
+                        <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Имя</th>
+                            <th scope="col">Фамилия</th>
+                            <th scope="col">Уровень доступа</th>
+                            <th scope="col">Дата и время последнего входа в систему</th>
+                            <th scope="col">Комментарий к диспетечеру</th>
+                            <th scope="col">Назначен на объект</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php $i = 1; foreach ($dispatchersArr as $dispatcher):  ?>
+                            <tr>
+                                <th><?= $i; ?></th>
+                                <td><?= $dispatcher['WEBKIT_TABLE_DISPATCHERS_USER_NAME'] ?></td>
+                                <td><?= $dispatcher['WEBKIT_TABLE_DISPATCHERS_USER_LAST_NAME'] ?></td>
+                                <td><?= $dispatcher['ACCESS_LEVEL'] ?></td>
+                                <td><?= $dispatcher['WEBKIT_TABLE_DISPATCHERS_USER_LAST_LOGIN'] ?></td>
+                                <td><?= $dispatcher['COMMENTARY'] ?></td>
+                                <td><?= $dispatcher['WEBKIT_TABLE_DISPATCHERS_OBJECT_TITLE'] ?></td>
+                            </tr>
+                            <?php $i++; endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="objects">
         <div class="container-fluid">
             <div class="row">
@@ -51,38 +92,6 @@ $dispatchersArr = $dispatchers->getDispatchersAndObjects();
             </div>
         </div>
     </section>
-
-    <section class="dispatchers mt-3">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-4">
-                    <h2 class="border-bottom-0">Список активных диспетчеров</h2>
-                    <table class="table table-hover mt-3">
-                        <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Имя</th>
-                            <th scope="col">Уровень доступа</th>
-                            <th scope="col">Назначен на объект</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php $i = 1; foreach ($dispatchersArr as $dispatcher):  ?>
-                            <tr>
-                                <th><?= $i; ?></th>
-                                <td><?= $dispatcher['WEBKIT_TABLE_DISPATCHERS_USER_NAME'] ?></td>
-                                <td><?= $dispatcher['ACCESS_LEVEL'] ?></td>
-                                <td><?= $dispatcher['WEBKIT_TABLE_DISPATCHERS_OBJECT_TITLE'] ?></td>
-                            </tr>
-                            <?php $i++; endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
