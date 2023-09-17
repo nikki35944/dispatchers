@@ -1,12 +1,13 @@
 <?php
-use \Webkit\Helper\dispatchersComponent;
+use Webkit\Helper\dispatchersComponent;
 use Webkit\Helper\objectsComponent;
 
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetPageProperty("title", "Демонстрационная версия продукта «1С-Битрикс: Управление сайтом»");
 $APPLICATION->SetPageProperty("NOT_SHOW_NAV_CHAIN", "Y");
 
-CModule::IncludeModule('webkit');
+if (! CModule::IncludeModule('webkit'))
+    echo "Включите модуль 'Список диспетчеров' в настройках админ. панели <br>";
 $dispatchers = new dispatchersComponent();
 $objects = new objectsComponent();
 $objectsArr = $objects->getObjectsAndDispatchers();
