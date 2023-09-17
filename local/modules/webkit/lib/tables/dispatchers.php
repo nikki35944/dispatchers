@@ -31,7 +31,9 @@ class DispatchersTable extends Entity\DataManager
                 'default_value' => new Type\Date,
             ]),
             new Entity\BooleanField('IS_ACTIVE'),
-            new Entity\DatetimeField('ACTIVITY_END'),
+            new Entity\DatetimeField('ACTIVITY_END', [
+                'nullable' => true,
+            ]),
             new Entity\TextField('COMMENTARY'),
             new Entity\IntegerField('ACCESS_LEVEL', [
                 'validation' => function() {
@@ -49,13 +51,13 @@ class DispatchersTable extends Entity\DataManager
                     ];
                 }
             ]),
+            new Entity\IntegerField('B_USER_ID'),
             new IntegerField('OBJECT_ID'),
             (new Reference(
                 'OBJECT',
                 ObjectsTable::class,
                 Join::on('this.OBJECT_ID', 'ref.ID')
             ))->configureJoinType('inner'),
-            new Entity\IntegerField('USER_ID'),
         ];
 
     }

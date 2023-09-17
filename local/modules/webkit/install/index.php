@@ -30,18 +30,34 @@ class webkit extends CModule
 
     function InstallDB($install_wizard = true)
     {
+        global $DB, $APPLICATION;
+
+        $errors = null;
 
         Loader::includeModule($this->MODULE_ID);
 
-        if (!Application::getConnection(\Webkit\Table\DispatchersTable::getConnectionName())
-            ->isTableExists(Base::getInstance('\Webkit\Table\DispatchersTable')->getDBTableName())
+        if (!Application::getConnection(\Webkit\Table\ObjectsTable::getConnectionName())
+                ->isTableExists(Base::getInstance('\Webkit\Table\ObjectsTable')
+                    ->getDBTableName())
             &&
-            !Application::getConnection(\Webkit\Table\ObjectsTable::getConnectionName())
-            ->isTableExists(Base::getInstance('\Webkit\Table\ObjectsTable')->getDBTableName())
+            !Application::getConnection(\Webkit\Table\DispatchersTable::getConnectionName())
+                ->isTableExists(Base::getInstance('\Webkit\Table\DispatchersTable')->getDBTableName())
         )
         {
-            Base::getInstance('\Webkit\Table\DispatchersTable')->createDbTable();
             Base::getInstance('\Webkit\Table\ObjectsTable')->createDbTable();
+            Base::getInstance('\Webkit\Table\DispatchersTable')->createDbTable();
+
+            //fks and indexes
+            $errors = $DB->RunSQLBatch($_SERVER["DOCUMENT_ROOT"]."/local/modules/webkit/install/db/mysql/install.sql");
+
+            $errors = $DB->RunSQLBatch($_SERVER["DOCUMENT_ROOT"]."/local/modules/webkit/install/db/mysql/demo_data.sql");
+
+            if (!empty($errors))
+            {
+                $APPLICATION->ThrowException(implode("", $errors));
+                return false;
+            }
+
         }
 
 

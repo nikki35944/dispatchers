@@ -34,13 +34,6 @@ class ObjectsTable extends Entity\DataManager
 
 
            ( new OneToMany('DISPATCHERS', DispatchersTable::class, 'OBJECT') )->configureJoinType('inner'),
-
-            /*new Entity\IntegerField('DISPATCHER_ID'),
-            new Entity\ReferenceField(
-                'DISPATCHER',
-                '\DispatchersTable',
-                ['=this.DISPATCHER_ID', 'ref.ID']
-            ),*/
         ];
     }
 }
