@@ -6,6 +6,7 @@ Bitrix\Main\Loader::registerAutoloadClasses(
         "\Webkit\Table\DispatchersTable" => "lib/tables/dispatchers.php",
         "\Webkit\Table\ObjectsTable" => "lib/tables/objects.php",
         "\Webkit\Helper\ObjectsComponent" => "lib/helpers/objectsComponent.php",
+        "\Webkit\Helper\DispatchersComponent" => "lib/helpers/dispatchersComponent.php",
     ]
 );
 

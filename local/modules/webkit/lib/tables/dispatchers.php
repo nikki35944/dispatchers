@@ -53,11 +53,6 @@ class DispatchersTable extends Entity\DataManager
             ]),
             new Entity\IntegerField('B_USER_ID'),
             new IntegerField('OBJECT_ID'),
-            (new Reference(
-                'OBJECT',
-                ObjectsTable::class,
-                Join::on('this.OBJECT_ID', 'ref.ID')
-            ))->configureJoinType('inner'),
         ];
 
     }

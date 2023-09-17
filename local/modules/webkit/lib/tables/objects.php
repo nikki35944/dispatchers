@@ -32,8 +32,6 @@ class ObjectsTable extends Entity\DataManager
             new Entity\TextField('ADDRESS'),
             new Entity\TextField('COMMENTARY'),
 
-
-           ( new OneToMany('DISPATCHERS', DispatchersTable::class, 'OBJECT') )->configureJoinType('inner'),
         ];
     }
 }
