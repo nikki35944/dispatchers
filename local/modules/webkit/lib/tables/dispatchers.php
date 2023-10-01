@@ -4,8 +4,6 @@ namespace Webkit\Table;
 
 use Bitrix\Main\Entity;
 use Bitrix\Main\ORM\Fields\IntegerField;
-use Bitrix\Main\ORM\Fields\Relations\Reference;
-use Bitrix\Main\ORM\Query\Join;
 use Bitrix\Main\Type;
 
 class DispatchersTable extends Entity\DataManager

@@ -3,7 +3,6 @@
 namespace Webkit\Table;
 
 use Bitrix\Main\Entity;
-use Bitrix\Main\ORM\Fields\Relations\OneToMany;
 use Bitrix\Main\Type;
 
 class ObjectsTable extends Entity\DataManager
