@@ -33,7 +33,7 @@ class DispatchersTable extends Entity\DataManager
                 'nullable' => true,
             ]),
             new Entity\TextField('COMMENTARY'),
-            new Entity\IntegerField('ACCESS_LEVEL', [
+            new IntegerField('ACCESS_LEVEL', [
                 'validation' => function() {
                     return [
                         function ($value) {
@@ -50,7 +50,19 @@ class DispatchersTable extends Entity\DataManager
                 }
             ]),
             new Entity\IntegerField('B_USER_ID'),
-            new IntegerField('OBJECT_ID'),
+            new Entity\ReferenceField(
+                'USER',
+                '\Bitrix\Main\UserTable',
+                ["=this.B_USER_ID" => "ref.ID"],
+                ["join_type" => "left"]
+            ),
+            new Entity\IntegerField('OBJECT_ID'),
+            new Entity\ReferenceField(
+                'OBJECT',
+                '\Webkit\Table\ObjectsTable',
+                ["=this.OBJECT_ID" => "ref.ID"],
+                ["join_type" => "left"]
+            ),
         ];
 
     }

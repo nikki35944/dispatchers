@@ -31,6 +31,17 @@ class ObjectsTable extends Entity\DataManager
             new Entity\TextField('ADDRESS'),
             new Entity\TextField('COMMENTARY'),
 
+            new Entity\ReferenceField(
+                'DISPATCHER',
+                '\Webkit\Table\DispatchersTable',
+                ["=this.ID" => "ref.OBJECT_ID"],
+            ),
+            new Entity\ReferenceField(
+                'USER',
+                '\Bitrix\Main\UserTable',
+                ["=this.DISPATCHER.B_USER_ID" => "ref.ID"]
+            ),
+
         ];
     }
 }

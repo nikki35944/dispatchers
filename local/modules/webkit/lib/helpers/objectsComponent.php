@@ -25,18 +25,6 @@ class objectsComponent extends \CBitrixComponent
         $query = ObjectsTable::getList([
             'select' => ['ID', 'TITLE', 'ADDRESS', 'COMMENTARY', 'DISPATCHER.ID', 'DISPATCHER.ACTIVITY_START', 'DISPATCHER.COMMENTARY', 'DISPATCHER.B_USER_ID', 'DISPATCHER.ACCESS_LEVEL', 'USER.NAME'],
             'filter' => [],
-            'runtime' => [
-                new \Bitrix\Main\Entity\ReferenceField(
-                    'DISPATCHER',
-                    '\Webkit\Table\DispatchersTable',
-                    ["=this.ID" => "ref.OBJECT_ID"],
-                ),
-                new \Bitrix\Main\Entity\ReferenceField(
-                    'USER',
-                    '\Bitrix\Main\UserTable',
-                    ["=this.DISPATCHER.B_USER_ID" => "ref.ID"]
-                ),
-            ],
         ]);
 
         if ($obCache->initCache($cacheTtl, $cacheId))

@@ -26,20 +26,6 @@ class dispatchersComponent extends \CBitrixComponent
         $query = DispatchersTable::getList([
             'select' => ['ACCESS_LEVEL', 'COMMENTARY', 'OBJECT.ID', 'OBJECT.TITLE', 'USER.NAME', 'USER.LAST_NAME', 'USER.LAST_LOGIN'],
             'filter' => [],
-            'runtime' => [
-                new \Bitrix\Main\Entity\ReferenceField(
-                    'OBJECT',
-                    '\Webkit\Table\ObjectsTable',
-                    ["=this.OBJECT_ID" => "ref.ID"],
-                    ["join_type" => "left"]
-                ),
-                new \Bitrix\Main\Entity\ReferenceField(
-                    'USER',
-                    '\Bitrix\Main\UserTable',
-                    ["=this.B_USER_ID" => "ref.ID"],
-                    ["join_type" => "left"]
-                ),
-            ]
         ]);
 
         if ($obCache->initCache($cacheTtl, $cacheId))
