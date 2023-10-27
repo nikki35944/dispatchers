@@ -16,7 +16,7 @@ class dispatchersComponent extends \CBitrixComponent
 
 
     function getDispatchersAndObjects()
-    {
+    { 
         $result = [];
         $cacheTtl = 36000;
         $cacheId = 'dispatchers_cache';
